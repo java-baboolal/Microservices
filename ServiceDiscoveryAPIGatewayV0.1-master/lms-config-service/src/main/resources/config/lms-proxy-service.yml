@@ -1,0 +1,23 @@
+server:
+  port: 8070
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8061/eureka/
+
+logging:
+  pattern: 
+    console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
+              
+zuul:
+  routes:
+    department:
+      path: /department/**
+      serviceId: lms-department-service
+    employee:
+      path: /employee/**
+      serviceId: lms-employee-service
+    organization:
+      path: /organization/**
+      serviceId: lms-organization-service

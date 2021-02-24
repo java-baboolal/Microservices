@@ -1,0 +1,19 @@
+server:
+  port: 9090
+  context-path: /apigateway
+
+spring:
+  application:
+    name: ZUULAPIGATEWAY-SERVICE
+
+zuul:
+  routes:
+    CUSTOMER-SERVICE:
+      path: /customer/**
+      strip-prefix: false
+      url : http://localhost:9091/
+    ORDER-SERVICE:
+      path: /order/**
+      strip-prefix: false
+      url: http://localhost:9092/
+  prefix: /service

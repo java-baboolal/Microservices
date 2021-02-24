@@ -1,0 +1,7 @@
+server:
+  port: 9092
+  context-path: /order
+
+spring:
+  application:
+    name: ORDER-SERVICE

@@ -1,0 +1,7 @@
+server:
+  port: 9091
+  context-path: /customer
+
+spring:
+  application:
+    name: CUSTOMER-SERVICE
