@@ -11,11 +11,13 @@ zuul:
     CUSTOMER-SERVICE:
       path: /customer/**
       strip-prefix: false
-      url : http://localhost:9091/
+      service-id:
+     # url : http://localhost:9091/
     ORDER-SERVICE:
       path: /order/**
       strip-prefix: false
-      url: http://localhost:9092/
+      #url: http://localhost:9092/
+      service-id:
   prefix: /service
 
 
