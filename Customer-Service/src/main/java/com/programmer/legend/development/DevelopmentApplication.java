@@ -1,15 +1,17 @@
 package com.programmer.legend.development;
 
+import com.programmer.legend.development.rabbitmq.config.RabbitMQCustomerChannel;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.context.annotation.Bean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
-@EnableDiscoveryClient
+//@EnableDiscoveryClient
 @EnableTransactionManagement
+@EnableBinding(RabbitMQCustomerChannel.class)
 public class DevelopmentApplication {
 
     public static void main(String[] args) {
