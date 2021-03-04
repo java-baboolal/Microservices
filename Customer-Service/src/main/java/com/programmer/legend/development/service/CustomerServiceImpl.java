@@ -3,7 +3,9 @@ package com.programmer.legend.development.service;
 import com.programmer.legend.development.dto.CustomerDTO;
 import com.programmer.legend.development.dto.OrderDTO;
 import com.programmer.legend.development.entity.Customer;
+import com.programmer.legend.development.rabbitmq.config.RabbitMQCustomerChannel;
 import com.programmer.legend.development.repository.CustomerRepository;
+import com.sun.xml.internal.ws.server.sei.EndpointResponseMessageBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -11,6 +13,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
@@ -25,6 +28,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     RestTemplate restTemplate;
+
+    @Autowired
+    RabbitMQCustomerChannel channel;
 
     @Override
     @Transactional
@@ -52,11 +58,14 @@ public class CustomerServiceImpl implements CustomerService {
             order.setMenuId(customerDTO.getMenuId());
             order.setRestaurantId(customerDTO.getRestaurantId());
 
-            HttpHeaders headers = new HttpHeaders();
+           /* HttpHeaders headers = new HttpHeaders();
             headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
             HttpEntity<OrderDTO> entity = new HttpEntity<>(order,headers);
             //Rest  call to order service.
-            ResponseEntity<String> respone = restTemplate.exchange(url, HttpMethod.POST,entity,String.class);
+            ResponseEntity<String> respone = restTemplate.exchange(url, HttpMethod.POST,entity,String.class);*/
+
+           channel.outputChennel().send(MessageBuilder.withPayload(order).build());
+
         }
         return new ResponseEntity<>(message, HttpStatus.CREATED);
     }

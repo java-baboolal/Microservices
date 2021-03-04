@@ -25,3 +25,9 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8500/eureka/
+
+
+
+ribbon:
+  ReadTimeout:200000
+  SocketTimeout:200000
